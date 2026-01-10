@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+<class>MusicPlayer</class>
+<widget class="QMainWindow" name="MusicPlayer">
+ <property name="geometry">
+  <rect>
+   <x>0</x>
+   <y>0</y>
+   <width>500</width>
+   <height>600</height>
+  </rect>
+ </property>
+ <property name="minimumSize">
+  <size>
+   <width>400</width>
+   <height>500</height>
+  </size>
+ </property>
+ <property name="windowTitle">
+  <string>音乐播放器</string>
+ </property>
+ <property name="styleSheet">
+  <string notr="true">
+    /* 主窗口背景 */
+    QMainWindow {
+        background-color: #f5f7fa;
+        color: #333333;
+        font-family: "Segoe UI", "Microsoft YaHei";
+    }
+
+    /* 标签样式 */
+    QLabel {
+        color: #555555;
+        font-size: 14px;
+    }
+
+    /* 文件标签特殊样式 */
+    #labelFile {
+        font-size: 15px;
+        font-weight: bold;
+        color: #2c3e50;
+        background-color: #ffffff;
+        border: 2px solid #e0e6ed;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    /* 按钮样式 */
+    QPushButton {
+        background-color: #3498db;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 16px;
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        min-height: 30px;
+        min-width: 60px;
+    }
+    QPushButton:hover {
+        background-color: #2980b9;
+    }
+    QPushButton:pressed {
+        background-color: #1c6399;
+    }
+    QPushButton:disabled {
+        background-color: #bdc3c7;
+        color: #7f8c8d;
+    }
+
+    /* 选择按钮特殊样式 */
+    #btnSelect {
+        background-color: #EdEdEd;
+        color: #000000;
+    }
+    #btnSelect:hover {
+        background-color: #DaDada;
+    }
+    #btnSelect:pressed {
+        background-color: #d0d0d0;
+    }
+
+    /* 播放按钮特殊样式 */
+    #btnPlay {
+        background-color: #3498db;
+    }
+
+    /* 停止按钮特殊样式 */
+    #btnStop {
+        background-color: #e74c3c;
+    }
+    #btnStop:hover {
+        background-color: #c0392b;
+    }
+    #btnStop:pressed {
+        background-color: #a93226;
+    }
+
+    /* 列表歌词样式 - 去除横线 */
+    QListWidget {
+        background-color: #ffffff;
+        border: 2px solid #e0e6ed;
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 14px;
+        color: #555555;
+        selection-background-color: #e8f4fc;
+        outline: 0;  /* 去除选中虚线框 */
+    }
+    QListWidget::item {
+        padding: 8px 12px;
+        /* 去除 border-bottom 横线 */
+    }
+    QListWidget::item:selected {
+        background-color: #e8f4fc;
+        color: #2c3e50;
+        font-weight: bold;
+        border-radius: 6px;
+    }
+    QListWidget::item:hover {
+        background-color: #f8f9fa;
+        border-radius: 6px;
+    }
+
+    /* 进度条和音量条 */
+    QSlider::groove:horizontal {
+        background-color: #dfe6e9;
+        height: 6px;
+        border-radius: 3px;
+    }
+    QSlider::handle:horizontal {
+        background-color: #3498db;
+        width: 18px;
+        height: 18px;
+        margin: -6px 0;
+        border-radius: 9px;
+        border: 2px solid #ffffff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    QSlider::sub-page:horizontal {
+        background-color: #3498db;
+        border-radius: 3px;
+    }
+
+    /* 当前/总时间标签 */
+    #labelCurrent, #labelTotal {
+        color: #7f8c8d;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    /* 音量标签 */
+    #label {
+        color: #7f8c8d;
+        font-weight: bold;
+    }
+
+    /* 状态栏标签 */
+    #labelStatus {
+        font-size: 13px;
+        color: #3498db;
+        padding: 8px;
+        border-top: 2px solid #e0e6ed;
+        background-color: #ffffff;
+        border-radius: 0 0 8px 8px;
+        font-weight: bold;
+    }
+
+    /* 水平布局微调 */
+    QHBoxLayout {
+        spacing: 10px;
+        margin: 5px;
+    }
+
+    /* 垂直布局微调 */
+    QVBoxLayout {
+        spacing: 15px;
+        margin: 10px;
+    }
+
+    /* 分隔符样式 */
+    QSpacerItem {
+        background-color: transparent;
+    }
+  </string>
+ </property>
+ <widget class="QWidget" name="centralwidget">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="labelFile">
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>35</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>未选择文件</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSelect">
+       <property name="text">
+        <string>选择音乐</string>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>90</width>
+         <height>35</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="btnPlay">
+       <property name="text">
+        <string>播放</string>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>70</width>
+         <height>35</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnStop">
+       <property name="text">
+        <string>停止</string>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>70</width>
+         <height>35</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>音量:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="sliderVolume">
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>50</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="labelCurrent">
+       <property name="minimumSize">
+        <size>
+         <width>55</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>00:00</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="sliderProgress">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelTotal">
+       <property name="minimumSize">
+        <size>
+         <width>55</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>00:00</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QListWidget" name="listLyrics">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::NoSelection</enum>
+     </property>
+     <property name="verticalScrollMode">
+      <enum>QAbstractItemView::ScrollPerPixel</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelStatus">
+     <property name="text">
+      <string>就绪</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+</widget>
+<resources/>
+<connections/>
+</ui>
