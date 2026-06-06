@@ -35,12 +35,8 @@ private slots:
     void seekTo(int position);
     void loadLyrics();
     void highlightCurrentLyric();
-    
-    // 新增：双击歌词跳转
     void onLyricDoubleClicked(QListWidgetItem *item);
-    // 新增：调整字体大小
     void adjustLyricFontSizes();
-
     void loadConfig();
     void saveConfig();
 
@@ -49,21 +45,28 @@ private:
     QMediaPlayer *player;
     QAudioOutput *audioOutput;
     
-    QMap<qint64, QString> lyricsMap;  // 时间戳 -> 歌词文本（纯文本）
-    QList<qint64> timeStamps;         // 时间戳列表
-    QList<QString> lyricTexts;        // 歌词文本列表（纯文本）
-    int currentLyricIndex = -1;       // 当前歌词索引
+    QMap<qint64, QString> lyricsMap;
+    QList<qint64> timeStamps;
+    QList<QString> lyricTexts;
+    int currentLyricIndex = -1;
     
-    // 新增：字体相关
     QFont baseFont;
     int baseFontSize = 12;
-    int currentFontSize = 20;         // 当前行字体大小
-    int nextFontSize = 16;            // 下一行字体大小
-    int normalFontSize = 12;          // 普通行字体大小
+    int currentFontSize = 20;
+    int nextFontSize = 16;
+    int normalFontSize = 12;
 
     QString lastFolderPath;
+    QString defaultFolder;
     
     void parseLyricsFile(const QString &filePath);
     void updateLyricDisplay();
+    QString getConfigFilePath();
+    QString findLyricsFile(const QString &musicPath);
+    QString extractSongTitle(const QString &fileName);
+    QStringList getAllLyricsFiles(const QString &directory);
+    int calculateMatchScore(const QString &fileName, const QString &songName, const QString &artistName);
+    void extractMetadata(const QString &musicPath, QString &songName, QString &artistName);
 };
+
 #endif // MUSICPLAYER_H
